@@ -1,0 +1,17 @@
+Rails.application.routes.draw do
+  # EXAMPLE HTML ROUTE
+  # get "/photos" => "photos#index"
+
+  # EXAMPLE JSON ROUTE WITH API NAMESPACE
+  namespace :api do
+    get "/first_contact" => "contacts_#contact_action"
+
+    get "contacts" => "contacts#index"
+    get "/contacts/show" => "contacts#show"
+    post "/contacts" => "contacts#create"
+    patch "/contacts/:id" => "contacts#update"
+    delete "/contacts/:id" => "contacts#destroy"
+
+  end
+
+end
