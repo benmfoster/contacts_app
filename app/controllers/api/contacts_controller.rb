@@ -35,6 +35,7 @@ class Api::ContactsController < ApplicationController
     	@contact.last_name = params[:last_name] || @contact.last_name
     	@contact.phone_number = params[:phone_number] || @contact.phone_number
     	@contact.email = params[:email]	|| @contact.email
+        @contact.address = params[:address] || @contact.address
 
     	@contact.save
     	render 'show.json.jbuilder'
@@ -44,6 +45,12 @@ class Api::ContactsController < ApplicationController
     	@contact = Contact.find(params[:id])
     	@contact.destroy
     	render json {message: "Contact successfully destroyed!"}
+    end
+
+    def coordinates
+        @contact = Contact.find(params[:id])
+        @contact.latitude = Geocoder.coordinates(address)[0]
+        @contact.longitude = Geocoder.coordinates(address[1]
     end
 
 end
