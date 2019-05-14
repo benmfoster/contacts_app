@@ -11,16 +11,18 @@ class Api::ContactsController < ApplicationController
     end
 
     def show
-    	@product = Product.find(params[:id])
+    	@contact = Contact.find(params[:id])
     	render "show.json.jbuilder"
     end
 
     def create
     	@contact = Contact.new(
-    		first_name: params[:first_name]
+			first_name: params[:first_name]
+			middle_name: params(:middle_name)
     		last_name: params[:last_name]
     		phone_number: params [:phone_number]
-    		email: params[:email]
+			email: params[:email]
+			bio: params[:bio]
     		)
     	@contact.save
     	render 'create.json.jbuilder'
@@ -29,7 +31,7 @@ class Api::ContactsController < ApplicationController
     def update
     	@contact = Contact.find(params[:id])
 
-    	@contact.first_name = params[:first_name] || @contact.first_name
+		@contact.first_name = params[:first_name] || @contact.first_name
     	@contact.last_name = params[:last_name] || @contact.last_name
     	@contact.phone_number = params[:phone_number] || @contact.phone_number
     	@contact.email = params[:email]	|| @contact.email
@@ -40,7 +42,7 @@ class Api::ContactsController < ApplicationController
 
     def destroy
     	@contact = Contact.find(params[:id])
-    	@product.destroy
+    	@contact.destroy
     	render json {message: "Contact successfully destroyed!"}
     end
 
